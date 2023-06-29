@@ -45,10 +45,8 @@ export class Ping extends plugin {
       }
       if (net.isIPv4(msg)) {
         options.IPV4 = true
-        console.log(options)
       } else if (net.isIPv6(msg)) {
         options.IPV6 = true
-        console.log(options)
       } else {
         domain = getDomain(msg)
         ipAddress = domain ? await getIPAddress(domain) : ''
@@ -59,7 +57,6 @@ export class Ping extends plugin {
       }
       try {
         let response = await pingman(ipAddress, options)
-        console.log(response)
         if (response.alive) {
           pingRes = '最小延迟：' + Math.floor(response.min) + 'ms\n' +
             '最大延迟：' + Math.floor(response.max) + 'ms\n' +
@@ -107,7 +104,7 @@ async function getIPAddress (host) {
       })
     })
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   }
 }
